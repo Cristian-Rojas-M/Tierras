@@ -1,17 +1,17 @@
 import {
   KeyboardArrowDownRounded,
   KeyboardArrowUpRounded,
-} from '@material-ui/icons';
-import React, { useState } from 'react';
-import styles from './Country.module.css';
-import { Link } from 'react-router-dom';
+} from "@material-ui/icons";
+import React, { useState } from "react";
+import styles from "./Country.module.css";
+import { Link } from "react-router-dom";
 
 const orderBy = (countries, value, direction) => {
-  if (direction === 'asc') {
+  if (direction === "asc") {
     return [...countries].sort((a, b) => (a[value] > b[value] ? 1 : -1));
   }
 
-  if (direction === 'desc') {
+  if (direction === "desc") {
     return [...countries].sort((a, b) => (a[value] > b[value] ? -1 : 1));
   }
 
@@ -23,16 +23,16 @@ const SortArrow = ({ direction }) => {
     return <> </>;
   }
 
-  if (direction === 'desc') {
+  if (direction === "desc") {
     return (
       <div className={styles.heading_arrow}>
-        <KeyboardArrowDownRounded color='inherit' />
+        <KeyboardArrowDownRounded color="inherit" />
       </div>
     );
   } else {
     return (
       <div className={styles.heading_arrow}>
-        <KeyboardArrowUpRounded color='inherit' />
+        <KeyboardArrowUpRounded color="inherit" />
       </div>
     );
   }
@@ -46,9 +46,9 @@ function CountryTable({ countries }) {
 
   const switchDirection = () => {
     if (!direction) {
-      setDirection('desc');
-    } else if (direction === 'desc') {
-      setDirection('asc');
+      setDirection("desc");
+    } else if (direction === "desc") {
+      setDirection("asc");
     } else {
       setDirection(null);
     }
@@ -65,46 +65,46 @@ function CountryTable({ countries }) {
         <div className={styles.heading_flag}></div>
         <button
           className={styles.heading_name}
-          onClick={() => setValueAndDirection('name')}
+          onClick={() => setValueAndDirection("name")}
         >
           <div>Name</div>
 
-          {value === 'name' && <SortArrow direction={direction} />}
+          {value === "name" && <SortArrow direction={direction} />}
         </button>
 
         <button
           className={styles.heading_population}
-          onClick={() => setValueAndDirection('population')}
+          onClick={() => setValueAndDirection("population")}
         >
           <div>Population</div>
 
-          {value === 'population' && <SortArrow direction={direction} />}
+          {value === "population" && <SortArrow direction={direction} />}
         </button>
 
         <button
           className={styles.heading_area}
-          onClick={() => setValueAndDirection('area')}
+          onClick={() => setValueAndDirection("area")}
         >
           <div>
-            Area (Km<sup style={{ fontSize: '0.5rem' }}>2</sup>)
+            Area (Km<sup style={{ fontSize: "0.5rem" }}>2</sup>)
           </div>
 
-          {value === 'area' && <SortArrow direction={direction} />}
+          {value === "area" && <SortArrow direction={direction} />}
         </button>
 
         <button
           className={styles.heading_gini}
-          onClick={() => setValueAndDirection('gini')}
+          onClick={() => setValueAndDirection("gini")}
         >
           <div>Gini</div>
 
-          {value === 'gini' && <SortArrow direction={direction} />}
+          {value === "gini" && <SortArrow direction={direction} />}
         </button>
       </div>
 
       {orderedCoutries.map((country, index) => (
         <Link to={`/country-detail/${country.alpha3Code}`} key={index}>
-          <div className={styles.row} style={{ cursor: 'pointer' }}>
+          <div className={styles.row} style={{ cursor: "pointer" }}>
             <div className={styles.flag}>
               <img src={country.flag} alt={country.name} />
             </div>

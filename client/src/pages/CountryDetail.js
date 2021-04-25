@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Layout from '../components/Layout/Layout';
-import styles from './CountryDetail.module.css';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Layout from "../components/Layout/Layout";
+import styles from "./CountryDetail.module.css";
 
-const getCountryDetail = async (id) => {
-  const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
-  const country = await res.json();
-  return country;
-};
+const getCountryDetail = async (id) => {};
 
 const CountryDetail = () => {
   const { countryId } = useParams();
@@ -76,14 +72,14 @@ const CountryDetail = () => {
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Languages</div>
               <div className={styles.details_panel_value}>
-                {countryData.languages.map(({ name }) => name).join(', ')}
+                {countryData.languages.map(({ name }) => name).join(", ")}
               </div>
             </div>
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currencies</div>
               <div className={styles.details_panel_value}>
-                {countryData.currencies.map(({ name }) => name).join(', ')}
+                {countryData.currencies.map(({ name }) => name).join(", ")}
               </div>
             </div>
 
