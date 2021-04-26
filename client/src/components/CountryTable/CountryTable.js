@@ -96,22 +96,19 @@ function CountryTable({ countries }) {
           className={styles.heading_gini}
           onClick={() => setValueAndDirection("gini")}
         >
-          <div>Gini</div>
-
           {value === "gini" && <SortArrow direction={direction} />}
         </button>
       </div>
 
       {orderedCoutries.map((country, index) => (
-        <Link to={`/country-detail/${country.alpha3Code}`} key={index}>
+        <Link to={`/country-detail/${country.ID}`} key={index}>
           <div className={styles.row} style={{ cursor: "pointer" }}>
             <div className={styles.flag}>
-              <img src={country.flag} alt={country.name} />
+              <img src={country.image} alt={country.name} />
             </div>
             <div className={styles.name}>{country.name}</div>
-            <div className={styles.population}>{country.population}</div>
+            <div className={styles.population}>{country.poblacion}</div>
             <div className={styles.area}>{country.area || 0}</div>
-            <div className={styles.gini}>{country.gini || 0}%</div>
           </div>
         </Link>
       ))}

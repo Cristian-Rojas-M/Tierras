@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CountryTable from "../components/CountryTable/CountryTable";
 import Layout from "../components/Layout/Layout";
 import SearchInput from "../components/SearchInput/SearchInput";
@@ -6,25 +7,23 @@ import { getCountries } from "../redux/actions";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [countries, setCountries] = useState([]);
+  const dispatch = useDispatch();
+  const [country, setCountry] = useState([]);
   const [countriesLoaded, setCountriesLoaded] = useState(false);
-
-  const fetchCountries = async () => {
-    getCountries();
-  };
+  const { countries } = useSelector((state) => state);
 
   useEffect(() => {
-    (async () => {
-      const res = await fetchCountries();
-      if (res.success) {
-        setCountries(res.data);
+    dispatch(getCountries());
+    (() => {
+      if (countries) {
+        setCountry(countries);
         setCountriesLoaded(true);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   const [keyword, setKeyword] = useState("");
-  const filteredCountries = countries.filter(
+  const filteredCountries = country.filter(
     (country) =>
       country.name.toLowerCase().includes(keyword) ||
       country.region.toLowerCase().includes(keyword) ||
@@ -36,6 +35,7 @@ export default function Home() {
 
     setKeyword(e.target.value.toLowerCase());
   };
+  if (!countries) return <h1>Loading...</h1>;
   return (
     <Layout>
       <div className={styles.inputContainer}>
