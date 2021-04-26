@@ -14,12 +14,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getCountries());
-    (() => {
       if (countries) {
         setCountry(countries);
         setCountriesLoaded(true);
       }
-    })();
   }, [dispatch]);
 
   const [keyword, setKeyword] = useState("");
