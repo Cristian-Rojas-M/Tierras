@@ -23,17 +23,17 @@ export default function Home() {
 
   const [keyword, setKeyword] = useState("");
 
-  const filteredCountries = country.filter(
-    (country) =>
-      country.name.toLowerCase().includes(keyword) ||
-      country.region.toLowerCase().includes(keyword) ||
-      country.subregion.toLowerCase().includes(keyword)
-  );
+  // const filteredCountries = country.filter(
+  //   (country) =>
+  //     country.name.toLowerCase().includes(keyword) ||
+  //     country.region.toLowerCase().includes(keyword) ||
+  //     country.subregion.toLowerCase().includes(keyword)
+  // );
 
   const onInputChange = (e) => {
     e.preventDefault();
 
-    setKeyword(e.target.value.toLowerCase());
+    setKeyword(e.target.value);
   };
   const handleButton = () => {
     if (!disbutton) {
@@ -63,7 +63,7 @@ export default function Home() {
         <button onClick={handleButton}>Ocultar paises</button>
       )}
 
-      {disbutton ? <CountryTable countries={filteredCountries} /> : null}
+      {disbutton ? <CountryTable countries={country} /> : null}
     </Layout>
   );
 }
