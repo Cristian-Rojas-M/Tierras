@@ -17,8 +17,7 @@
 
 .heading_name,
 .heading_population,
-.heading_area,
-.heading_gini {
+.heading_area {
   flex: 4;
   color: var(--text-color-secondary);
   font-weight: 500;

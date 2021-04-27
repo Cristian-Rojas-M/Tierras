@@ -1,48 +1,45 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Layout from '../components/Layout/Layout';
-import styles from './CountryDetail.module.css';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Layout from "../components/Layout/Layout";
+import { getDetails } from "../redux/actions";
+import styles from "./CountryDetail.module.css";
 
-const getCountryDetail = async (id) => {
-  const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
-  const country = await res.json();
-  return country;
-};
-
-const CountryDetail = () => {
-  const { countryId } = useParams();
+const CountryDetail = ({ match }) => {
+  const { id } = match.params;
+  const dispatch = useDispatch();
 
   const [borders, setBorders] = useState([]);
   const [countryData, setCountries] = useState(null);
+  const { detail } = useSelector((state) => state);
 
-  const getBorders = async (countryData) => {
-    const borders = await Promise.all(
-      countryData.borders.map((border) => getCountryDetail(border))
-    );
+  // const getBorders = async (countryData) => {
+  //   const borders = await Promise.all(
+  //     countryData.borders.map((border) => getCountryDetail(border))
+  //   );
 
-    setBorders(borders);
-  };
+  //   setBorders(borders);
+  // };
 
   useEffect(() => {
-    (async () => {
-      const res = await getCountryDetail(countryId);
-      if (res) {
-        console.log(res);
-        setCountries(res);
+    dispatch(getDetails(id));
+    if (detail) {
+      console.log(detail);
+      setCountries(detail);
 
-        getBorders(res);
-      }
-    })();
+      // getBorders(detail);
+    }
   }, []);
+  console.log(countryData);
 
-  if (!countryData) return null;
+  if (!countryData) return <h1>loading ...</h1>;
 
   return (
     <Layout title={countryData.name}>
       <div className={styles.container}>
         <div className={styles.container_left}>
           <div className={styles.overview_panel}>
-            <img src={countryData.flag} alt={countryData.name} />
+            <img src={countryData.image} alt={countryData.name} />
 
             <h1 className={styles.overview_name}>{countryData.name}</h1>
             <div className={styles.overview_region}>{countryData.region}</div>
@@ -75,16 +72,10 @@ const CountryDetail = () => {
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Languages</div>
-              <div className={styles.details_panel_value}>
-                {countryData.languages.map(({ name }) => name).join(', ')}
-              </div>
             </div>
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currencies</div>
-              <div className={styles.details_panel_value}>
-                {countryData.currencies.map(({ name }) => name).join(', ')}
-              </div>
             </div>
 
             <div className={styles.details_panel_row}>
@@ -129,27 +120,3 @@ const CountryDetail = () => {
 };
 
 export default CountryDetail;
-
-// export const getStaticPaths = async () => {
-//   const res = await fetch('https://restcountries.eu/rest/v2/all');
-//   const countries = await res.json();
-
-//   const paths = countries.map((country) => ({
-//     params: { id: country.alpha3Code },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = async ({ params }) => {
-//   const country = await getCountry(params.id);
-
-//   return {
-//     props: {
-//       country,
-//     },
-//   };
-// };
