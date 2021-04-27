@@ -91,8 +91,6 @@ function CountryTable({ countries }) {
 
           {value === "area" && <SortArrow direction={direction} />}
         </button>
-
-      
       </div>
 
       {orderedCoutries.map((country, index) => (

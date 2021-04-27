@@ -11,16 +11,18 @@ export default function Home() {
   const [country, setCountry] = useState([]);
   const [countriesLoaded, setCountriesLoaded] = useState(false);
   const { countries } = useSelector((state) => state);
+  const [disbutton, setDisbutton] = useState(false);
 
   useEffect(() => {
     dispatch(getCountries());
-      if (countries) {
-        setCountry(countries);
-        setCountriesLoaded(true);
-      }
-  }, [dispatch]);
+    if (countries) {
+      setCountry(countries);
+      setCountriesLoaded(true);
+    }
+  }, [disbutton]);
 
   const [keyword, setKeyword] = useState("");
+
   const filteredCountries = country.filter(
     (country) =>
       country.name.toLowerCase().includes(keyword) ||
@@ -33,11 +35,20 @@ export default function Home() {
 
     setKeyword(e.target.value.toLowerCase());
   };
-  if (!countries) return <h1>Loading...</h1>;
+  const handleButton = () => {
+    if (!disbutton) {
+      setDisbutton(true);
+    }
+    if (disbutton) {
+      setDisbutton(false);
+    }
+  };
+
+  // if (!countries) return <h1>Loading...</h1>;
   return (
     <Layout>
       <div className={styles.inputContainer}>
-        <div className={styles.counts}>Found {countries.length} countries</div>
+        <div className={styles.counts}>Found {countries?.length} countries</div>
 
         <div className={styles.input}>
           <SearchInput
@@ -46,8 +57,13 @@ export default function Home() {
           />
         </div>
       </div>
+      {!disbutton ? (
+        <button onClick={handleButton}>Ver todos los paises</button>
+      ) : (
+        <button onClick={handleButton}>Ocultar paises</button>
+      )}
 
-      <CountryTable countries={filteredCountries} />
+      {disbutton ? <CountryTable countries={filteredCountries} /> : null}
     </Layout>
   );
 }

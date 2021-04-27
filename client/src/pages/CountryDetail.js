@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
+import { getDetails } from "../redux/actions";
 import styles from "./CountryDetail.module.css";
 
-const getCountryDetail = async (id) => {};
-
 const CountryDetail = () => {
-  const { countryId } = useParams();
+  const { id } = useParams();
 
   const [borders, setBorders] = useState([]);
   const [countryData, setCountries] = useState(null);
+  const { detail } = useSelector((state) => state);
 
-  const getBorders = async (countryData) => {
-    const borders = await Promise.all(
-      countryData.borders.map((border) => getCountryDetail(border))
-    );
+  // const getBorders = async (countryData) => {
+  //   const borders = await Promise.all(
+  //     countryData.borders.map((border) => getCountryDetail(border))
+  //   );
 
-    setBorders(borders);
-  };
+  //   setBorders(borders);
+  // };
 
   useEffect(() => {
-    (async () => {
-      const res = await getCountryDetail(countryId);
-      if (res) {
-        console.log(res);
-        setCountries(res);
+    getDetails(id);
+    if (detail) {
+      console.log(detail);
+      setCountries(detail);
 
-        getBorders(res);
-      }
-    })();
+      // getBorders(detail);
+    }
   });
+  console.log(detail);
 
   if (!countryData) return null;
 
@@ -125,4 +125,3 @@ const CountryDetail = () => {
 };
 
 export default CountryDetail;
-
