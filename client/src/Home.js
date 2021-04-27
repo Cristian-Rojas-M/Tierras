@@ -7,7 +7,7 @@ export default function Home() {
     <Router>
       <Switch>
         <Route path="/" exact component={CountryList} />
-        <Route path="/country-detail/:countryId" component={CountryDetail} />
+        <Route path="/country-detail/:id" component={CountryDetail} />
       </Switch>
     </Router>
   );

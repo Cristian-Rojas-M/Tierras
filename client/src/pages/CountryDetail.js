@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import { getDetails } from "../redux/actions";
 import styles from "./CountryDetail.module.css";
 
-const CountryDetail = () => {
-  const { id } = useParams();
+const CountryDetail = ({ match }) => {
+  const { id } = match.params;
+  const dispatch = useDispatch();
 
   const [borders, setBorders] = useState([]);
   const [countryData, setCountries] = useState(null);
@@ -21,24 +22,24 @@ const CountryDetail = () => {
   // };
 
   useEffect(() => {
-    getDetails(id);
+    dispatch(getDetails(id));
     if (detail) {
       console.log(detail);
       setCountries(detail);
 
       // getBorders(detail);
     }
-  });
-  console.log(detail);
+  }, []);
+  console.log(countryData);
 
-  if (!countryData) return null;
+  if (!countryData) return <h1>loading ...</h1>;
 
   return (
     <Layout title={countryData.name}>
       <div className={styles.container}>
         <div className={styles.container_left}>
           <div className={styles.overview_panel}>
-            <img src={countryData.flag} alt={countryData.name} />
+            <img src={countryData.image} alt={countryData.name} />
 
             <h1 className={styles.overview_name}>{countryData.name}</h1>
             <div className={styles.overview_region}>{countryData.region}</div>
@@ -71,16 +72,10 @@ const CountryDetail = () => {
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Languages</div>
-              <div className={styles.details_panel_value}>
-                {countryData.languages.map(({ name }) => name).join(", ")}
-              </div>
             </div>
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currencies</div>
-              <div className={styles.details_panel_value}>
-                {countryData.currencies.map(({ name }) => name).join(", ")}
-              </div>
             </div>
 
             <div className={styles.details_panel_row}>
