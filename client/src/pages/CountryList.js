@@ -46,19 +46,19 @@ export default function Home() {
 
         <div className={styles.input}>
           <SearchInput
-            placeholder="Filter by name, region or subregion"
+            placeholder="Search Countries by Name or Continent"
             onChange={onInputChange}
           />
         </div>
       </div>
       {!disbutton ? (
-        <button onClick={handleButton}>Ver todos los paises</button>
+        <button onClick={handleButton}>See All Countries</button>
       ) : (
-        <button onClick={handleButton}>Ocultar paises</button>
+        <button onClick={handleButton}>Hide The Countries</button>
       )}
 
       {disbutton ? <CountryTable countries={country} /> : null}
-      {countriesSearch && countriesSearch.length < 10 && !disbutton ? (
+      {countriesSearch && countriesSearch.length < 61 && !disbutton ? (
         <CountryTable countries={countriesSearch} />
       ) : null}
     </Layout>

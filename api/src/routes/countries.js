@@ -16,7 +16,10 @@ server.get("/search", async (req, res) => {
   try {
     let contries = await Country.findAll({
       where: {
-        [Op.or]: [{ name: { [Op.iLike]: `%${value}%` } }],
+        [Op.or]: [
+          { name: { [Op.iLike]: `%${value}%` } },
+          { continente: { [Op.iLike]: `%${value}%` } },
+        ],
       },
     });
     res.status(200).json(contries);
