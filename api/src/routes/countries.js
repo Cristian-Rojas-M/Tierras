@@ -11,20 +11,25 @@ server.get("/", async (req, res) => {
   }
 });
 
-server.get("/:id", async (req, res) => {
-  const { id } = req.params;
+server.get("/search", async (req, res) => {
+  const { value } = req.query;
   try {
-    let country = await Country.findByPk(id);
-    res.status(200).json(country);
+    let contries = await Country.findAll({
+      where: {
+        [Op.or]: [{ name: { [Op.iLike]: `%${value}%` } }],
+      },
+    });
+    res.status(200).json(contries);
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
-server.get("/con", async (req, res) => {
+server.get("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const paises = await Country.findAll();
-    res.status(200).json(paises);
+    let country = await Country.findByPk(id);
+    res.status(200).json(country);
   } catch (error) {
     res.status(400).send(error);
   }

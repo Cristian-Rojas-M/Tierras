@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CountryTable from "../components/CountryTable/CountryTable";
 import Layout from "../components/Layout/Layout";
 import SearchInput from "../components/SearchInput/SearchInput";
-import { getCountries } from "../redux/actions";
+import { getCountries, getSearch } from "../redux/actions";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
   const [countriesLoaded, setCountriesLoaded] = useState(false);
   const { countries } = useSelector((state) => state);
   const [disbutton, setDisbutton] = useState(false);
+  const { countriesSearch } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getCountries());
@@ -21,19 +22,13 @@ export default function Home() {
     }
   }, [disbutton]);
 
-  const [keyword, setKeyword] = useState("");
-
-  // const filteredCountries = country.filter(
-  //   (country) =>
-  //     country.name.toLowerCase().includes(keyword) ||
-  //     country.region.toLowerCase().includes(keyword) ||
-  //     country.subregion.toLowerCase().includes(keyword)
-  // );
-
   const onInputChange = (e) => {
     e.preventDefault();
-
-    setKeyword(e.target.value);
+    let value = e.target.value;
+    dispatch(getSearch(value));
+    if (disbutton) {
+      setDisbutton(false);
+    }
   };
   const handleButton = () => {
     if (!disbutton) {
@@ -44,7 +39,6 @@ export default function Home() {
     }
   };
 
-  // if (!countries) return <h1>Loading...</h1>;
   return (
     <Layout>
       <div className={styles.inputContainer}>
@@ -64,6 +58,9 @@ export default function Home() {
       )}
 
       {disbutton ? <CountryTable countries={country} /> : null}
+      {countriesSearch && countriesSearch.length < 10 && !disbutton ? (
+        <CountryTable countries={countriesSearch} />
+      ) : null}
     </Layout>
   );
 }
