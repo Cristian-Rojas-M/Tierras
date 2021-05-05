@@ -10,50 +10,33 @@ const CountryDetail = ({ match }) => {
   const dispatch = useDispatch();
 
   const [borders, setBorders] = useState([]);
-  const [countryData, setCountries] = useState(null);
   const { detail } = useSelector((state) => state);
-
-  // const getBorders = async (countryData) => {
-  //   const borders = await Promise.all(
-  //     countryData.borders.map((border) => getCountryDetail(border))
-  //   );
-
-  //   setBorders(borders);
-  // };
 
   useEffect(() => {
     dispatch(getDetails(id));
-    if (detail) {
-      console.log(detail);
-      setCountries(detail);
-
-      // getBorders(detail);
-    }
   }, []);
-  console.log(countryData);
+  console.log(detail);
 
-  if (!countryData) return <h1>loading ...</h1>;
+  if (!detail) return <h1>loading...</h1>;
 
   return (
-    <Layout title={countryData.name}>
+    <Layout title={detail.name}>
       <div className={styles.container}>
         <div className={styles.container_left}>
           <div className={styles.overview_panel}>
-            <img src={countryData.image} alt={countryData.name} />
+            <img src={detail.image} alt={detail.name} />
 
-            <h1 className={styles.overview_name}>{countryData.name}</h1>
-            <div className={styles.overview_region}>{countryData.region}</div>
+            <h1 className={styles.overview_name}>{detail.name}</h1>
+            <div className={styles.overview_region}>{detail.region}</div>
 
             <div className={styles.overview_numbers}>
               <div className={styles.overview_population}>
-                <div className={styles.overview_value}>
-                  {countryData.population}
-                </div>
+                <div className={styles.overview_value}>{detail.poblacion}</div>
                 <div className={styles.overview_label}>Population</div>
               </div>
 
               <div className={styles.overview_area}>
-                <div className={styles.overview_value}>{countryData.area}</div>
+                <div className={styles.overview_value}>{detail.area}</div>
                 <div className={styles.overview_label}>Area</div>
               </div>
             </div>
@@ -65,31 +48,31 @@ const CountryDetail = ({ match }) => {
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Capital</div>
+              <div className={styles.details_panel_value}>{detail.capital}</div>
+            </div>
+
+            <div className={styles.details_panel_row}>
+              <div className={styles.details_panel_label}>Continente</div>
               <div className={styles.details_panel_value}>
-                {countryData.capital}
+                {detail.continente}
               </div>
             </div>
 
             <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Languages</div>
-            </div>
-
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Currencies</div>
-            </div>
-
-            <div className={styles.details_panel_row}>
-              <div className={styles.details_panel_label}>Native name</div>
+              <div className={styles.details_panel_label}>Sub Region</div>
               <div className={styles.details_panel_value}>
-                {countryData.nativeName}
+                {detail.subregion}
               </div>
+            </div>
+
+            <div className={styles.details_panel_row}>
+              <div className={styles.details_panel_label}>Codigo de letras</div>
+              <div className={styles.details_panel_value}>{detail.ID}</div>
             </div>
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Gini</div>
-              <div className={styles.details_panel_value}>
-                {countryData.gini} %
-              </div>
+              <div className={styles.details_panel_value}>{detail.gini} %</div>
             </div>
 
             <div className={styles.details_panel_borders}>

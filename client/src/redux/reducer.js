@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_DETAILS } from "./costantes";
+import { GET_COUNTRIES, GET_DETAILS, GET_SEARCH } from "./costantes";
 
 let initialState = {};
 export default function datos(state = initialState, action) {
@@ -12,6 +12,11 @@ export default function datos(state = initialState, action) {
       return {
         ...state,
         detail: action.payload,
+      };
+    case GET_SEARCH:
+      return {
+        ...state,
+        countriesSearch: action.payload,
       };
     default:
       return state;
