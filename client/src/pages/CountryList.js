@@ -8,35 +8,22 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [country, setCountry] = useState([]);
-  const [countriesLoaded, setCountriesLoaded] = useState(false);
   const { countries } = useSelector((state) => state);
-  const [disbutton, setDisbutton] = useState(false);
   const { countriesSearch } = useSelector((state) => state);
+  const [country, setCountry] = useState({});
+  const [but, setBut] = useState({
+    limit: "10",
+    offset: "0",
+  });
 
   useEffect(() => {
     dispatch(getCountries());
-    if (countries) {
-      setCountry(countries);
-      setCountriesLoaded(true);
-    }
-  }, [disbutton]);
+  }, [dispatch]);
 
   const onInputChange = (e) => {
     e.preventDefault();
     let value = e.target.value;
     dispatch(getSearch(value));
-    if (disbutton) {
-      setDisbutton(false);
-    }
-  };
-  const handleButton = () => {
-    if (!disbutton) {
-      setDisbutton(true);
-    }
-    if (disbutton) {
-      setDisbutton(false);
-    }
   };
 
   return (
@@ -51,16 +38,12 @@ export default function Home() {
           />
         </div>
       </div>
-      {!disbutton ? (
-        <button onClick={handleButton}>See All Countries</button>
-      ) : (
-        <button onClick={handleButton}>Hide The Countries</button>
-      )}
 
-      {disbutton ? <CountryTable countries={country} /> : null}
-      {countriesSearch && countriesSearch.length < 61 && !disbutton ? (
+      {countriesSearch && countries ? (
         <CountryTable countries={countriesSearch} />
-      ) : null}
+      ) : (
+        countries && <CountryTable countries={countries} />
+      )}
     </Layout>
   );
 }

@@ -93,18 +93,19 @@ function CountryTable({ countries }) {
         </button>
       </div>
 
-      {orderedCoutries.map((country, index) => (
-        <Link to={`/country-detail/${country.id}`} key={index}>
-          <div className={styles.row} style={{ cursor: "pointer" }}>
-            <div className={styles.flag}>
-              <img src={country.image} alt={country.name} />
+      {orderedCoutries &&
+        orderedCoutries.map((country, index) => (
+          <Link to={`/country-detail/${country.id}`} key={index}>
+            <div className={styles.row} style={{ cursor: "pointer" }}>
+              <div className={styles.flag}>
+                <img src={country.image} alt={country.name} />
+              </div>
+              <div className={styles.name}>{country.name}</div>
+              <div className={styles.population}>{country.poblacion}</div>
+              <div className={styles.area}>{country.area || 0}</div>
             </div>
-            <div className={styles.name}>{country.name}</div>
-            <div className={styles.population}>{country.poblacion}</div>
-            <div className={styles.area}>{country.area || 0}</div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
     </div>
   );
 }

@@ -2,11 +2,17 @@ import { GET_COUNTRIES, GET_DETAILS, GET_SEARCH } from "./costantes";
 import axios from "axios";
 const localhost = "http://localhost:3001";
 
-export const getCountries = () => {
+export const getCountries = (limit, offset) => {
   return function (dispatch) {
-    axios
-      .get(`${localhost}/countries`)
-      .then((data) => dispatch({ type: GET_COUNTRIES, payload: data.data }));
+    if (limit && offset) {
+      axios
+        .get(`${localhost}/countries/?limit=${limit}&offset=${offset}`)
+        .then((data) => dispatch({ type: GET_COUNTRIES, payload: data.data }));
+    } else {
+      axios
+        .get(`${localhost}/countries`)
+        .then((data) => dispatch({ type: GET_COUNTRIES, payload: data.data }));
+    }
   };
 };
 

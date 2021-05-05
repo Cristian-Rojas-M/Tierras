@@ -2,10 +2,19 @@ const server = require("express").Router();
 const { Country } = require("../db");
 const { Op } = require("sequelize");
 
-server.get("/", async (req, res) => {
+// server.get("/", async (req, res) => {
+//   try {
+//     const paises = await Country.findAll();
+//     res.status(200).json(paises);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
+server.get("/", async (req, res, next) => {
+  let { limit, offset } = req.query;
   try {
-    const paises = await Country.findAll();
-    res.status(200).json(paises);
+    let countries = await Country.findAll({ limit, offset });
+    res.status(200).json(countries);
   } catch (error) {
     res.status(400).send(error);
   }
