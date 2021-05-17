@@ -47,13 +47,13 @@ export default function Home() {
       {countriesSearch && countries ? (
         <CountryTable countries={countriesSearch} />
       ) : (
-        countries && <CountryTable countries={currentPosts} />
-      )}
-      <Pagination
+          countries && <CountryTable countries={currentPosts} />
+        )}
+      {countries && <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={countries && countries.length}
+        totalPosts={countries.length}
         paginate={paginate}
-      />
+      />}
     </Layout>
   );
 }

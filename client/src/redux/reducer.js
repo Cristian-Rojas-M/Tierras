@@ -6,7 +6,7 @@ export default function datos(state = initialState, action) {
     case GET_COUNTRIES:
       return {
         ...state,
-        countries: action.payload,
+        countries: action.payload.sort((a, b) => a.id - b.id),
       };
     case GET_DETAILS:
       return {

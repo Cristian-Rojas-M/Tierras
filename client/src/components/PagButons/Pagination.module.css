@@ -3,17 +3,26 @@
   flex-direction: row;
   justify-content: center;
 }
-li {
+.item {
   list-style-type: none;
   margin: 5px;
 }
+
+
 .number {
+  text-align: center;
   color: #6d6f6f;
   background-color: #d8f2f9;
   border-style: solid;
   border-width: 1px;
   border-color: #5ed2f1;
+  transition: background-color 2s ,height 5s, width 5s;
 }
 .number:hover {
-  background-color: brown;
+  background-color: aqua;
+  height: 24px;
+  width: 23px;
+  font-size: 18px;
+  cursor: default;
 }
+

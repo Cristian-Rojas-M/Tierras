@@ -13,13 +13,13 @@ function Pagination({ postsPerPage, totalPosts, paginate }) {
       <ul className={styles.pagination}>
         {pageNumbers.map((number) => (
           <li key={number} className={styles.item}>
-            <a
-              onClick={() => paginate(number)}
-              href=""
-              className={styles.number}
-            >
-              {number}
-            </a>
+            <div className={styles.number}>
+              <span
+                onClick={() => paginate(number)}
+              >
+                {number}
+              </span>
+            </div>
           </li>
         ))}
       </ul>
