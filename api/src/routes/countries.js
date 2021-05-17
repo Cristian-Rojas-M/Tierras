@@ -23,15 +23,17 @@ server.get("/", async (req, res, next) => {
 server.get("/search", async (req, res) => {
   const { value } = req.query;
   try {
-    let contries = await Country.findAll({
-      where: {
-        [Op.or]: [
-          { name: { [Op.iLike]: `%${value}%` } },
-          { continente: { [Op.iLike]: `%${value}%` } },
-        ],
-      },
-    });
-    res.status(200).json(contries);
+    if (value) {
+      let contries = await Country.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.iLike]: `%${value}%` } },
+            { continente: { [Op.iLike]: `%${value}%` } },
+          ],
+        },
+      });
+      res.status(200).json(contries);
+    }
   } catch (error) {
     res.status(400).send(error);
   }

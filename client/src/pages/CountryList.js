@@ -13,6 +13,7 @@ export default function Home() {
   const { countriesSearch } = useSelector((state) => state);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
+  const [serach, setSearch] = useState();
 
   useEffect(() => {
     dispatch(getCountries());
@@ -22,6 +23,7 @@ export default function Home() {
     e.preventDefault();
     let value = e.target.value;
     dispatch(getSearch(value));
+    setSearch(value)
   };
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -30,6 +32,7 @@ export default function Home() {
     countries && countries.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  console.log(serach)
 
   return (
     <Layout>
@@ -44,12 +47,12 @@ export default function Home() {
         </div>
       </div>
 
-      {countriesSearch && countries ? (
+      {countriesSearch && countriesSearch.length < 10 && countries ? (
         <CountryTable countries={countriesSearch} />
       ) : (
-          countries && <CountryTable countries={currentPosts} />
-        )}
-      {countries && <Pagination
+        countries && <CountryTable countries={currentPosts} />
+      )}
+      {countries && !serach && <Pagination
         postsPerPage={postsPerPage}
         totalPosts={countries.length}
         paginate={paginate}
