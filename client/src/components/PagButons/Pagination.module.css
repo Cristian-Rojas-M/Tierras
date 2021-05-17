@@ -1,0 +1,19 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+li {
+  list-style-type: none;
+  margin: 5px;
+}
+.number {
+  color: #6d6f6f;
+  background-color: #d8f2f9;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #5ed2f1;
+}
+.number:hover {
+  background-color: brown;
+}
