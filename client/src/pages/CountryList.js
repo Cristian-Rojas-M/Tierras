@@ -23,7 +23,7 @@ export default function Home() {
     e.preventDefault();
     let value = e.target.value;
     dispatch(getSearch(value));
-    setSearch(value)
+    setSearch(value);
   };
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -32,7 +32,6 @@ export default function Home() {
     countries && countries.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(serach)
 
   return (
     <Layout>
@@ -52,11 +51,13 @@ export default function Home() {
       ) : (
         countries && <CountryTable countries={currentPosts} />
       )}
-      {countries && !serach && <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={countries.length}
-        paginate={paginate}
-      />}
+      {countries && !serach && (
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={countries.length}
+          paginate={paginate}
+        />
+      )}
     </Layout>
   );
 }

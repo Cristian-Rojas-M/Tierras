@@ -82,6 +82,15 @@ function CountryTable({ countries }) {
         </button>
 
         <button
+          className={styles.heading_population}
+          onClick={() => setValueAndDirection("continente")}
+        >
+          <div>Continente</div>
+
+          {value === "continente" && <SortArrow direction={direction} />}
+        </button>
+
+        <button
           className={styles.heading_area}
           onClick={() => setValueAndDirection("area")}
         >
@@ -102,6 +111,7 @@ function CountryTable({ countries }) {
               </div>
               <div className={styles.name}>{country.name}</div>
               <div className={styles.population}>{country.poblacion}</div>
+              <div className={styles.gini}>{country.continente}</div>
               <div className={styles.area}>{country.area || 0}</div>
             </div>
           </Link>
