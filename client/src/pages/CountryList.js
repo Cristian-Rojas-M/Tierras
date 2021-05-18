@@ -28,6 +28,7 @@ export default function Home() {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+
   const currentPosts =
     countries && countries.slice(indexOfFirstPost, indexOfLastPost);
 

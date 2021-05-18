@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import { getDetails } from "../redux/actions";
 import styles from "./CountryDetail.module.css";
@@ -9,13 +8,12 @@ const CountryDetail = ({ match }) => {
   const { id } = match.params;
   const dispatch = useDispatch();
 
-  const [borders, setBorders] = useState([]);
+  const [borders] = useState([]);
   const { detail } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getDetails(id));
   }, []);
-  console.log(detail);
 
   if (!detail) return <h1>loading...</h1>;
 
