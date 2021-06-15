@@ -1,23 +1,50 @@
-import { GET_COUNTRIES, GET_DETAILS, GET_SEARCH } from "./costantes";
+import {
+  ADD_PUBLICACION,
+  GET_DETALLE_PUBLICACION,
+  GET_PUBLICACIONES,
+  GET_SEARCH,
+  INPUT_CHANGE,
+  REMOVE_PUBLICACION,
+  UPDATE_PUBLI,
+} from "./constants";
 
 let initialState = {};
-export default function datos(state = initialState, action) {
+
+export default function findPublicacion(state = initialState, action) {
   switch (action.type) {
-    case GET_COUNTRIES:
+    case GET_PUBLICACIONES:
       return {
         ...state,
-        countries: action.payload,
+        publicacion: action.payload,
       };
-    case GET_DETAILS:
+    case GET_DETALLE_PUBLICACION:
       return {
         ...state,
-        detail: action.payload,
+        detailPublicacion: action.payload,
+      };
+    case UPDATE_PUBLI:
+      return {
+        ...state,
+        updatePubli: action.payload,
+      };
+    case ADD_PUBLICACION:
+      return { ...state, addPublicacion: action.payload };
+    case REMOVE_PUBLICACION:
+      return {
+        ...state,
+        removePubli: action.payload,
       };
     case GET_SEARCH:
       return {
         ...state,
-        countriesSearch: action.payload,
+        resultSearch: action.payload,
       };
+    case INPUT_CHANGE:
+      return {
+        ...state,
+        inputChange: action.payload,
+      };
+
     default:
       return state;
   }

@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #41af71;
+  color: #ffffff;
+  grid-area: header;
+  height: 65px;
+  transition: all 500ms ease-in-out;
+  .link {
+    text-decoration-line: none;
+    h3 {
+      color: #ffffff;
+      font-size: 30px;
+
+      &:hover {
+        color: orange;
+      }
+    }
+    span {
+      color: #ffffff;
+      font-size: 30px;
+
+      &:hover {
+        color: orange;
+      }
+    }
+  }
+}
